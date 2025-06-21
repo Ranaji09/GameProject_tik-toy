@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>LS</title>
+</head>
+<style>
+     body {
+          font-family: Arial, sans-serif;
+          padding: 30px;
+          color: rgb(170, 255, 0);
+          background-color: rgb(15, 15, 15);
+     }
+
+     input,
+     button {
+          padding: 10px;
+          margin: 5px 0;
+          color: rgb(170, 255, 0);
+          background-color: transparent;
+          outline: none;
+     }
+
+     .output {
+          margin-top: 15px;
+          font-weight: bold;
+          color: rgb(170, 255, 0);
+     }
+</style>
+
+<body>
+     <h2>LocalStorage डेमो</h2>
+     <div>
+          <input type="text" name="username" id="username" placeholder="Rana ji" autocomplete="off">
+          <button onclick="add()">Add</button>
+          <button onclick="read()">read</button>
+          <button onclick="delet()">Delete</button>
+
+          <p class="output" id="output"></p>
+     </div>
+
+</body>
+<script>
+     function add() {
+          const input = document.getElementById("username").value.trim();
+          // check
+          if (!input) {
+               document.getElementById("output").innerText = "Please Enter Your Name "
+               return;
+          }
+
+          let names = JSON.parse(localStorage.getItem("namelist")) || [];
+          names.push(input);
+
+          localStorage.setItem("namelist", JSON.stringify(names));
+
+          document.getElementById("username").value = "";
+          document.getElementById("output").innerText = "Name is saved !";
+
+
+     }
+     function read() {
+          let names = JSON.parse(localStorage.getItem("namelist")) || [];
+
+          if (names.length === 0) {
+               document.getElementById("output").innerText = "No Names Saved !";
+               return;
+
+          }
+          let listHTML = "<ul>";
+          names.forEach((name,) => {
+               listHTML += `<li>${name} </li>`;
+          });
+          listHTML += "</ul>";
+          document.getElementById("output").innerHTML = `All Names are Saves : ${listHTML} `
+     }
+     function delet() {
+          if (confirm("Deleted item")) {
+               localStorage.removeItem("namelist");
+               document.getElementById("output").innerText = "Deleted All User !"
+          }
+
+     }
+
+     // function add() {
+     //      const input = document.getElementById("username").value;
+     //      if (input) {
+     //           localStorage.setItem("username", input);
+     //           document.getElementById("output").innerText = `user Add :  ${input}`
+     //      } else {
+     //           document.getElementById("output").innerText = `Please enter Details`
+     //      }
+     // }
+     // function read() {
+     //      let name = localStorage.getItem("username");
+     //      if (name) {
+     //           document.getElementById("output").innerText = `User is : ${name}`
+     //      } else {
+     //           document.getElementById("output").innerText = "No user Found !"
+     //      }
+     // }
+     // function delet() {
+     //      localStorage.removeItem("username");
+     //      document.getElementById("output").innerText = "User Deleted !"
+     // }
+
+     /*
+     //    set item
+     // localStorage.setItem("username", "Rana ji");
+     // localStorage.setItem("Name", "Rana ji And Amisha ji")
+
+     // Get item
+     // let name = localStorage.getItem("username");
+     // console.log(name)
+
+     // remove one  item only
+     // localStorage.removeItem("username")
+
+     // Alll remove
+     // localStorage.clear();
+
+     //  Using loops in javascript
+     // for (let i = 0; i < localStorage.length; i++) {
+     //      let key = localStorage.key(i);
+     //      let value = localStorage.getItem(key);
+     //      console.log(`${key} : ${value}`)
+     // }
+
+
+     // let user = {
+     //      name: "Rana ji",
+     //      age: 21,
+     //      hobbies: ["coding ", "cricket"]
+     // };
+     // let king = {
+     //      name: "Amisha",
+     //      age: 24,
+     //      hobbies: ["parlure", "miss"]
+     // }
+     //  
+     localStorage.setItem("user", JSON.stringify(user))
+     // localStorage.setItem("king", JSON.stringify(king))
+     let username = JSON.parse(localStorage.getItem("user"));
+     console.log(username)
+     */
+
+</script>
+
+</html>

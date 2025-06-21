@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>jsb</title>
+</head>
+
+<body style="background-color: black; color: white;">
+     <div class="main">
+          <h1>Hey Rana Welcome to Yamraj Gaming 04.</h1>
+          <!-- <li>Rana ji</li> -->
+          <!-- <li>Amisha ji</li> -->
+     </div>
+</body>
+<script>
+     let main = document.querySelector(".main");
+     // console.log(main.childNodes)
+     // console.log(main.children)
+     // console.log(main.className);
+     // console.log(main.firstChild)
+     // console.log(main.lastChild);
+     // console.log(main.ariaReadOnly)
+     // console.log(main.innerHTML);
+     // console.log(main.innerText)
+     // console.log(main.textContent)
+     function add(lang) {
+          let c = document.createElement("li");
+          c.textContent = lang
+          main.appendChild(c)
+     }
+     add("Amisha ji ");
+     add("Rana ji");
+     add("Powder");
+     add("King ji");
+
+     // let c = document.createElement("li");
+     // c.textContent = "Amisha ji Ghar pe hai."
+     // main.appendChild(c);
+     // console.log(c);
+     // let c = document.querySelector("h1");
+     // c.style.backgroundColor = "red";
+     // c.style.borderRadius = "20px";
+     // c.style.textAlign = "center";
+     // c.style.padding = "20px";
+     // c.style.textShadow = "2px 2px green";
+     // c.style.textDecoration = "double underline";
+     // c.style.border = "5px solid green"
+     // c.innerHTML = "Rana ji";
+
+     // let name = prompt("What is your name?");
+     // console.log("User's name is:", name);
+
+     let c = document.querySelector("h1");
+     c.style.cursor = "pointer"
+     c.addEventListener("click", (e) => {
+          e.target.innerText = "King..";
+          e.target.style.backgroundColor = "red";
+          e.target.style.color = "white";
+          e.target.style.padding = "10px";
+          e.target.style.borderRadius = "5px";
+          e.target.style.color = "black";
+          e.target.style.textAlign = "center";
+     });
+     // console.log(main)
+
+
+
+</script>
+
+</html>

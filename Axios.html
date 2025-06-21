@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+     <title>Axios Demo - GET, POST, PUT, DELETE</title>
+     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+     <style>
+          button {
+               margin: 5px;
+               padding: 10px;
+               font-weight: bold;
+          }
+
+          #output {
+               margin-top: 20px;
+               white-space: pre-wrap;
+               background: #f0f0f0;
+               padding: 10px;
+               color: black;
+          }
+     </style>
+</head>
+
+<body style="background-color: rgb(37, 36, 36); color: wheat;">
+     <h1>🔥 Axios All-in-One Demo</h1>
+
+     <button onclick="getData()">GET</button>
+     <button onclick="postData()">POST</button>
+     <button onclick="putData()">PUT</button>
+     <button onclick="deleteData()">DELETE</button>
+     <button onclick="getWithHeaders()">GET with Header</button>
+
+     <div id="output">Waiting for response...</div>
+
+     <script>
+          const api = 'https://jsonplaceholder.typicode.com/posts/1';
+
+          // 1. GET Request
+          async function getData() {
+               try {
+                    const response = await axios.get(api);
+                    document.getElementById("output").innerText = "✅ GET Success:\n" + JSON.stringify(response.data, null, 2);
+               } catch (error) {
+                    document.getElementById("output").innerText = "❌ GET Error:\n" + error;
+               }
+          }
+
+          // 2. POST Request
+          async function postData() {
+               try {
+                    const payload = {
+                         title: 'foo',
+                         body: 'bar',
+                         userId: 1
+                    };
+                    const response = await axios.post('https://jsonplaceholder.typicode.com/posts', payload);
+                    document.getElementById("output").innerText = "✅ POST Success:\n" + JSON.stringify(response.data, null, 2);
+               } catch (error) {
+                    document.getElementById("output").innerText = "❌ POST Error:\n" + error;
+               }
+          }
+
+          // 3. PUT Request
+          async function putData() {
+               try {
+                    const payload = {
+                         id: 1,
+                         title: 'updated title',
+                         body: 'updated body',
+                         userId: 1
+                    };
+                    const response = await axios.put(api, payload);
+                    document.getElementById("output").innerText = "✅ PUT Success:\n" + JSON.stringify(response.data, null, 2);
+               } catch (error) {
+                    document.getElementById("output").innerText = "❌ PUT Error:\n" + error;
+               }
+          }
+
+          // 4. DELETE Request
+          async function deleteData() {
+               try {
+                    const response = await axios.delete(api);
+                    document.getElementById("output").innerText = "✅ DELETE Success:\n" + JSON.stringify(response.data, null, 2);
+               } catch (error) {
+                    document.getElementById("output").innerText = "❌ DELETE Error:\n" + error;
+               }
+          }
+
+          // 5. GET with Custom Headers
+          async function getWithHeaders() {
+               try {
+                    const response = await axios.get(api, {
+                         headers: {
+                              'Authorization': 'Bearer fake-token-123',
+                              'X-Custom-Header': 'RanaTestHeader'
+                         }
+                    });
+                    document.getElementById("output").innerText = "✅ GET with Header Success:\n" + JSON.stringify(response.data, null, 2);
+               } catch (error) {
+                    document.getElementById("output").innerText = "❌ GET with Header Error:\n" + error;
+               }
+          }
+
+
+
+          // FETCH
+          // const api = 'https://jsonplaceholder.typicode.com/posts/1';
+
+          // 1. GET Request
+          async function getData() {
+               try {
+                    const res = await fetch(api);
+                    const data = await res.json();
+                    document.getElementById("output").innerText = "✅ GET Success:\n" + JSON.stringify(data, null, 2);
+               } catch (err) {
+                    document.getElementById("output").innerText = "❌ GET Error:\n" + err;
+               }
+          }
+
+          // 2. POST Request
+          async function postData() {
+               try {
+                    const res = await fetch('https://jsonplaceholder.typicode.com/posts', {
+                         method: 'POST',
+                         headers: {
+                              'Content-Type': 'application/json'
+                         },
+                         body: JSON.stringify({
+                              title: 'foo',
+                              body: 'bar',
+                              userId: 1
+                         })
+                    });
+                    const data = await res.json();
+                    document.getElementById("output").innerText = "✅ POST Success:\n" + JSON.stringify(data, null, 2);
+               } catch (err) {
+                    document.getElementById("output").innerText = "❌ POST Error:\n" + err;
+               }
+          }
+
+          // 3. PUT Request
+          async function putData() {
+               try {
+                    const res = await fetch(api, {
+                         method: 'PUT',
+                         headers: {
+                              'Content-Type': 'application/json'
+                         },
+                         body: JSON.stringify({
+                              id: 1,
+                              title: 'updated title',
+                              body: 'updated body',
+                              userId: 1
+                         })
+                    });
+                    const data = await res.json();
+                    document.getElementById("output").innerText = "✅ PUT Success:\n" + JSON.stringify(data, null, 2);
+               } catch (err) {
+                    document.getElementById("output").innerText = "❌ PUT Error:\n" + err;
+               }
+          }
+
+          // 4. DELETE Request
+          async function deleteData() {
+               try {
+                    const res = await fetch(api, {
+                         method: 'DELETE'
+                    });
+                    const data = await res.json();
+                    document.getElementById("output").innerText = "✅ DELETE Success:\n" + JSON.stringify(data, null, 2);
+               } catch (err) {
+                    document.getElementById("output").innerText = "❌ DELETE Error:\n" + err;
+               }
+          }
+
+          // 5. GET with Custom Headers
+          async function getWithHeaders() {
+               try {
+                    const res = await fetch(api, {
+                         method: 'GET',
+                         headers: {
+                              'Authorization': 'Bearer fake-token-123',
+                              'X-Custom-Header': 'RanaTestHeader'
+                         }
+                    });
+                    const data = await res.json();
+                    document.getElementById("output").innerText = "✅ GET with Header Success:\n" + JSON.stringify(data, null, 2);
+               } catch (err) {
+                    document.getElementById("output").innerText = "❌ GET with Header Error:\n" + err;
+               }
+          }
+
+     </script>
+</body>
+
+</html>

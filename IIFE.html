@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>IIFE</title>
+</head>
+
+<body style=" background-color: rgb(36, 35, 35); color: white;">
+     <!-- <h1>IIFE in Javascript</h1>
+     <p id="para">your count is hare </p>
+     <button id="btn">click me</button>
+     <button id="btn1">r</button> -->
+
+
+     <!-- 
+     <h2>🖱️ बटन क्लिक काउंटर (LocalStorage के साथ)</h2>
+     <button id="clickBtn">क्लिक करें</button>
+     <button id="resetBtn">Reset करें</button>
+     <p id="displayCount">लोड हो रहा है...</p> -->
+
+
+     <!-- <h2>👤 रैंडम यूज़र प्रोफ़ाइल</h2>
+     <div id="userData">लोड हो रहा है...</div> -->
+
+
+     <h1> Destructuring</h1>
+     <h1>JavaScript Hoisting Example</h1>
+     <button onclick="runDemo()">Run Demo</button>
+     <pre id="output"></pre>
+
+</body>
+<script>
+     function runDemo() {
+          let result = "";
+          // var hoisting
+          result += "1. var Hoisting:\n";
+          result += "Value of a before declaration: " + a + "\n";
+          var a = 10;
+          result += "Value of a after declaration: " + a + "\n\n";
+          // let hoisting
+          result += "2. let Hoisting:\n";
+          try {
+               result += "Value of b before declaration: " + b + "\n";
+          } catch (error) {
+               result += "Error accessing b: " + error + "\n";
+          }
+          let b = 20;
+          result += "Value of b after declaration: " + b + "\n\n";
+          // function declaration hoisting
+          result += "3. Function Declaration:\n";
+          result += sayHello() + "\n\n";
+          function sayHello() {
+               return "Hello from function declaration!";
+          }
+          // function expression hoisting
+          result += "4. Function Expression:\n";
+          try {
+               greet(); // Trying to call before definition
+          } catch (error) {
+               result += "Error calling greet(): " + error + "\n";
+          }
+          var greet = function () {
+               return "Hello from function expression!";
+          };
+          result += "Calling greet after definition: " + greet() + "\n";
+          // Show output
+          document.getElementById("output").textContent = result;
+     }
+
+     // console.log(a)
+     // var a = 10;
+     // var a = 10;
+     // console.log(a);
+
+     // rana();
+     // function rana() {
+     //      console.log("Hello Rana")
+     // }
+
+     // a()
+     // let a = function add() {
+     //      console.log("Rana ji")
+     // }
+
+
+
+     // let a = 10;
+     // function rana() {
+     //      let b = 30;
+     //      {
+     // let c = 20;
+     // console.log(a)
+     // console.log(b)
+     // console.log(c);
+     // }
+     // console.log(c)
+     // console.log(a)
+     // console.log(b)
+     // }
+     // rana()
+     // console.log(a)
+     // console.log(b)
+
+
+     // console.log(localVar); ❌ Error
+     // const obj1 = { a: 1, b: 2 };
+     // const obj2 = { b: 3, c: 4 };
+     // const merged = { ...obj1, ...obj2 }; // { a: 1, b: 3, c: 4 }
+     // console.log(merged)
+
+     // const arr = [1, 2, 3, 4, 5];
+     // const arr1 = [6, 7, 8, 9, 10];
+     // console.log(...arr, ...arr1)
+
+     // const onj = {
+     //      name: "Ranaji",
+     //      age: 21
+     // }
+     // const { name, age } = onj;
+     // console.log(age);
+     // console.log(name);
+
+
+     // ✅ 2. Object Destructuring (ऑब्जेक्ट से वैल्यू निकालना)
+     // const person = {
+     //      name: "Rana ji",
+     //      age: 21,
+     //      islogedIn: true
+     // }
+     // const { name, age, islogedIn } = person;
+     // console.log(name);
+     // console.log(age);
+     // console.log(islogedIn);
+
+
+
+     // const colors = ['लाल', 'हरा', 'नीला'];
+     // const [a, b, c] = colors;
+     // console.log(a);
+     // console.log(b);
+     // console.log(c);
+
+     // 🔸 Default Value के साथ:
+     // const fruits = ["Apple"];
+     // const [a, b = "banana"] = fruits;
+     // console.log(a);
+     // console.log(b);
+
+
+
+     // (async function () {
+     //      const container = document.getElementById("userData");
+
+     //      try {
+     //           const response = await fetch('https://randomuser.me/api/');
+     //           const data = await response.json();
+     //           const user = data.results[0];
+     //           container.innerHTML = `
+     //      <img src="${user.picture.medium}" alt="User Image"><br>
+     //      <strong>नाम:</strong> ${user.name.first} ${user.name.last}<br>
+     //      <strong>ईमेल:</strong> ${user.email}<br>
+     //      <strong>देश:</strong> ${user.location.country}
+     //    `;
+     //      } catch (error) {
+     //           container.textContent = "डेटा लाने में त्रुटि हुई।";
+     //           console.error("Error fetching user:", error);
+     //      }
+     // })();
+
+
+     // (function () {
+     //      let count = parseInt(sessionStorage.getItem('clickCount')) || 0;
+     //      const button = document.getElementById("clickBtn");
+     //      const reset = document.getElementById("resetBtn");
+     //      const display = document.getElementById("displayCount");
+     //      button.addEventListener("click", function () {
+     //           count++;
+     //           sessionStorage.setItem('clickCount', count);
+     //           display.textContent = `आपने ${count} बार क्लिक किया है`;
+     //      });
+
+     //      reset.addEventListener("click", function () {
+     //           count = 0;
+     //           sessionStorage.setItem('clickCount', count);
+     //           display.textContent = `आपने ${count} बार क्लिक किया है`;
+     //      });
+     // })();
+
+
+
+     // (function () {
+     //      let count = 0
+     //      let para = document.getElementById("para");
+     //      let button = document.getElementById("btn");
+     //      let button1 = document.getElementById("btn1");
+     //      button.addEventListener("click", (e) => {
+     //           count++
+     //           para.textContent = `Your clicked ${count} times !`
+     //      })
+     //      button1.addEventListener("click", () => {
+     //           count--
+     //           para.textContent = `Your clicked ${count} times !`
+     //      })
+
+     // })();
+
+
+     // let a = (function () {
+     //      let rana = 0;
+     //      return {
+     //           increment: function () {
+     //                rana++;
+     //                console.log("increment " + rana);
+     //           },
+     //           reset: function () {
+     //                rana = 0;
+     //                console.log("Reset hoo gya hai", rana)
+     //           }
+     //      }
+     // })()
+     // a.increment()
+     // a.increment()
+     // a.increment()
+     // a.increment()
+     // a.reset()
+
+     // (function (name) {
+     //      console.log("Hello Rana I am Immediate invoke function." + name)
+     // }("Rana ji"))
+</script>
+
+</html>

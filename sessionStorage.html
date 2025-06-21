@@ -1,0 +1,411 @@
+<!-- <!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+     <meta charset="UTF-8">
+     <title>form</title>
+     <style>
+          body {
+               font-family: Arial, sans-serif;
+               background-color: #2b2b5f;
+               color: #fff;
+               padding: 20px;
+               text-align: center;
+          }
+
+          input,
+          button {
+               padding: 10px;
+               margin: 8px;
+               border-radius: 5px;
+               border: none;
+               font-size: 16px;
+          }
+
+
+          .main {
+               display: flex;
+          }
+
+          input {
+               width: 250px;
+          }
+
+          button {
+               background-color: orange;
+               color: black;
+               font-weight: bold;
+               cursor: pointer;
+          }
+
+          img {
+               width: 120px;
+               height: 120px;
+               object-fit: cover;
+               border-radius: 50%;
+               margin-top: 10px;
+               border: 3px solid #fff;
+          }
+
+          #welcomeBox {
+               margin-top: 20px;
+          }
+
+          #output {
+               color: yellow;
+               font-size: 18px;
+               margin-top: 10px;
+          }
+
+          .box {
+               margin-top: 30px;
+               border: 2px solid #fff;
+               padding: 20px;
+               border-radius: 10px;
+               max-width: 400px;
+               margin-left: auto;
+               margin-right: auto;
+          }
+     </style>
+</head>
+
+<body>
+
+     <h1 id="tag">🧑‍💻 User Signup/Login with Profile Photo</h1>
+
+     <div class="main">
+          <div class="box" id="signUpBox">
+               <h2>🔐 Signup</h2>
+               <input type="text" id="signupUsername" placeholder="Enter username"><br>
+               <input type="password" id="signupPassword" placeholder="Enter password"><br>
+               <input type="file" id="signupPhoto" accept="image/*"><br>
+               <button onclick="signUp()">Create Account</button>
+          </div>
+
+          <div class="box" id="loginBox">
+               <h2>🔓 Login</h2>
+               <input type="text" id="loginUsername" placeholder="Username"><br>
+               <input type="password" id="loginPassword" placeholder="Password"><br>
+               <button onclick="login()">Login</button>
+          </div>
+     </div>
+
+
+     <div id="output"></div>
+
+     <div class="box" id="welcomeBox" style="display: none;">
+          <h2 id="welcomeText"></h2>
+          <img id="profilePic" src="https://i.pinimg.com/736x/6a/19/1c/6a191c42460957037e3ddbf51a563a5f.jpg"
+               alt="Profile Photo"><br>
+          <button onclick="logout()">🚪 Logout</button>
+     </div>
+
+     <script>
+          // Convert file to Base64
+          function toBase64(file) {
+               return new Promise((resolve, reject) => {
+                    const reader = new FileReader();
+                    reader.readAsDataURL(file);
+                    reader.onload = () => resolve(reader.result);
+                    reader.onerror = error => reject(error);
+               });
+          }
+
+          // Signup
+          async function signUp() {
+               const username = document.getElementById("signupUsername").value.trim();
+               const password = document.getElementById("signupPassword").value.trim();
+               const photoFile = document.getElementById("signupPhoto").files[0];
+
+               if (!username || !password || !photoFile) {
+                    showMessage("⚠️ Please fill all fields and upload a photo.");
+                    return;
+               }
+
+               const users = JSON.parse(localStorage.getItem("users")) || {};
+
+               if (users[username]) {
+                    showMessage("❗ Username already exists.");
+                    return;
+               }
+
+               const photoData = await toBase64(photoFile);
+
+               users[username] = {
+                    password: password,
+                    photo: photoData
+               };
+
+               localStorage.setItem("users", JSON.stringify(users));
+               showMessage("✅ Signup successful! Please login.");
+
+               // Clear form
+               document.getElementById("signupUsername").value = "";
+               document.getElementById("signupPassword").value = "";
+               document.getElementById("signupPhoto").value = "";
+          }
+
+          // Login
+          function login() {
+               const username = document.getElementById("loginUsername").value.trim(); // ✅ was wrong
+               const password = document.getElementById("loginPassword").value.trim(); // ✅ was wrong
+
+               if (!username || !password) {
+                    showMessage("⚠️ Please enter both username and password.");
+                    return;
+               }
+
+               const users = JSON.parse(localStorage.getItem("users")) || {};
+
+               if (!users[username] || users[username].password !== password) {
+                    showMessage("❌ Invalid username or password.");
+                    return;
+               }
+
+               sessionStorage.setItem("isLoggedIn", "true");
+               sessionStorage.setItem("username", username);
+               showWelcome();
+          }
+
+          // Show welcome message and image
+          function showWelcome() {
+               const username = sessionStorage.getItem("username");
+               const users = JSON.parse(localStorage.getItem("users")) || {};
+               const userData = users[username];
+
+               if (sessionStorage.getItem("isLoggedIn") === "true" && userData) {
+                    document.getElementById("signUpBox").style.display = "none";
+                    document.getElementById("loginBox").style.display = "none";
+                    document.getElementById("welcomeBox").style.display = "block";
+                    document.getElementById("tag").style.display = "none";
+
+                    document.getElementById("welcomeText").innerText = `🎉 Welcome, ${username}!`;
+                    document.getElementById("profilePic").src = userData.photo;
+                    showMessage("");
+               }
+          }
+
+          // Logout
+          function logout() {
+               sessionStorage.clear();
+               location.reload();
+          }
+
+          // Show output message
+          function showMessage(msg) {
+               document.getElementById("output").innerText = msg;
+          }
+
+          // Auto-load if session exists
+          window.onload = showWelcome;
+     </script>
+
+</body>
+
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+     <meta charset="UTF-8">
+     <title>📝 Note Solving App</title>
+     <style>
+          body {
+               font-family: sans-serif;
+               background: #f4f4f4;
+               padding: 30px;
+               text-align: center;
+          }
+
+          h1 {
+               color: #333;
+          }
+
+          textarea {
+               width: 80%;
+               height: 100px;
+               font-size: 16px;
+               padding: 10px;
+               border: 2px solid #666;
+               border-radius: 5px;
+               resize: none;
+               margin-bottom: 10px;
+          }
+
+          button {
+               padding: 10px 20px;
+               font-size: 16px;
+               font-weight: bold;
+               background-color: #2b85e4;
+               color: white;
+               border: none;
+               border-radius: 5px;
+               cursor: pointer;
+               margin-bottom: 20px;
+          }
+
+          .note {
+               background-color: #fff;
+               padding: 15px;
+               margin: 10px auto;
+               width: 80%;
+               border-left: 5px solid #2b85e4;
+               text-align: left;
+               position: relative;
+          }
+
+          .delete-btn {
+               position: absolute;
+               right: 10px;
+               top: 10px;
+               background: red;
+               color: white;
+               border: none;
+               border-radius: 3px;
+               padding: 4px 8px;
+               cursor: pointer;
+          }
+     </style>
+</head>
+
+<body>
+
+     <h1>📝 My Notes</h1>
+
+     <textarea id="noteInput" placeholder="Write your note here..."></textarea><br>
+     <button onclick="addNote()">➕ Add Note</button>
+
+     <div id="notesContainer"></div>
+
+     <script>
+          // Load existing notes on page load
+          window.onload = function () {
+               loadNotes();
+          };
+
+          function addNote() {
+               const noteText = document.getElementById("noteInput").value.trim();
+
+               if (!noteText) {
+                    alert("⚠️ Please write a note first!");
+                    return;
+               }
+
+               // Get existing notes or initialize
+               let notes = JSON.parse(localStorage.getItem("notes")) || [];
+
+               // Add new note
+               notes.push(noteText);
+
+               // Save to localStorage
+               localStorage.setItem("notes", JSON.stringify(notes));
+
+               // Clear input
+               document.getElementById("noteInput").value = "";
+
+               // Reload UI
+               loadNotes();
+          }
+
+          function loadNotes() {
+               const container = document.getElementById("notesContainer");
+               container.innerHTML = "";
+
+               const notes = JSON.parse(localStorage.getItem("notes")) || [];
+
+               notes.forEach((note, index) => {
+                    const noteDiv = document.createElement("div");
+                    noteDiv.className = "note";
+                    noteDiv.innerHTML = `
+          ${note}
+          <button class="delete-btn" onclick="deleteNote(${index})">🗑️ Delete</button>
+        `;
+                    container.appendChild(noteDiv);
+               });
+          }
+
+          function deleteNote(index) {
+               let notes = JSON.parse(localStorage.getItem("notes")) || [];
+               notes.splice(index, 1); // Remove the selected note
+               localStorage.setItem("notes", JSON.stringify(notes));
+               loadNotes();
+          }
+     </script>
+
+</body>
+
+</html>
+
+
+
+<!-- <!DOCTYPE html>
+<html lang="hi">
+
+<head>
+     <meta charset="UTF-8">
+     <title>Storage Event Demo</title>
+     <style>
+          body {
+               font-family: sans-serif;
+               background-color: #f0f0f0;
+               text-align: center;
+               margin-top: 50px;
+          }
+
+          input,
+          button {
+               padding: 10px;
+               margin: 10px;
+               font-size: 16px;
+          }
+
+          #output {
+               margin-top: 20px;
+               font-size: 20px;
+               color: green;
+          }
+     </style>
+</head>
+
+<body>
+
+     <h1>🧪 localStorage Storage Event Demo</h1>
+
+     <input type="text" id="username" placeholder="अपना नाम दर्ज करें">
+     <button onclick="saveUsername()">💾 Save Username</button>
+
+     <div id="output">कोई यूज़र नाम सेव नहीं है।</div>
+
+     <script>
+          // यूज़रनेम सेव करना
+          function saveUsername() {
+               const username = document.getElementById("username").value.trim();
+               if (username) {
+                    localStorage.setItem("username", username);
+                    document.getElementById("output").innerText = `✅ यूज़र नाम सेव किया गया: ${username}`;
+               }
+          }
+
+          // दूसरे टैब में बदलाव सुनना
+          window.addEventListener("storage", function (event) {
+               if (event.key === "username") {
+                    if (event.newValue) {
+                         document.getElementById("output").innerText = `🔁 दूसरे टैब से नया नाम आया: ${event.newValue}`;
+                    } else {
+                         document.getElementById("output").innerText = `🗑️ यूज़र नाम हटाया गया`;
+                    }
+               }
+          });
+
+          // पेज लोड पर दिखाए अगर नाम पहले से मौजूद हो
+          const saved = localStorage.getItem("username");
+          if (saved) {
+               document.getElementById("output").innerText = `👋 स्वागत है, ${saved}`;
+          }
+     </script>
+
+</body>
+
+</html> -->

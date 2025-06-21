@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+     <meta charset="UTF-8" />
+     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+     <title>File Uploader with Progress</title>
+     <link rel="stylesheet" href="style.css" />
+</head>
+<style>
+     body {
+          font-family: Arial, sans-serif;
+          background: #f5f5f5;
+          display: flex;
+          justify-content: center;
+          padding-top: 100px;
+     }
+
+     .uploader-container {
+          background: white;
+          padding: 30px;
+          border-radius: 8px;
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+          text-align: center;
+          width: 300px;
+     }
+
+     input[type="file"] {
+          margin-bottom: 10px;
+     }
+
+     button {
+          padding: 10px 20px;
+          font-size: 16px;
+          cursor: pointer;
+     }
+
+     .progress-wrapper {
+          width: 100%;
+          background: #eee;
+          border-radius: 5px;
+          margin: 15px 0;
+          height: 20px;
+          overflow: hidden;
+     }
+
+     #progressBar {
+          background: #4caf50;
+          width: 0%;
+          height: 100%;
+          transition: width 0.3s ease;
+     }
+</style>
+
+<body>
+     <div class="uploader-container">
+          <h2>📤 File Uploader</h2>
+          <input type="file" id="fileInput" />
+          <button id="uploadBtn">Upload</button>
+
+          <div class="progress-wrapper">
+               <div id="progressBar"></div>
+          </div>
+          <p id="statusText">No file uploaded</p>
+     </div>
+
+</body>
+<script>
+     const fileInput = document.getElementById("fileInput");
+     const uploadBtn = document.getElementById("uploadBtn");
+     const progressBar = document.getElementById("progressBar");
+     const statusText = document.getElementById("statusText");
+
+     uploadBtn.addEventListener("click", () => {
+          const file = fileInput.files[0];
+          if (!file) {
+               alert("कृपया कोई फ़ाइल चुनें");
+               return;
+          }
+
+          simulateUpload(file);
+     });
+
+     // Simulated upload (you can replace with real upload)
+     function simulateUpload(file) {
+          let progress = 0;
+          progressBar.style.width = "0%";
+          statusText.textContent = `Uploading "${file.name}"...`;
+          localStorage.setItem(`pload   ${file.name}`)
+
+          const interval = setInterval(() => {
+               if (progress >= 100) {
+                    clearInterval(interval);
+                    statusText.textContent = `✅ Upload complete: ${file.name}`;
+               } else {
+                    progress += Math.floor(Math.random() * 10) + 5;
+                    progress = Math.min(progress, 100);
+                    progressBar.style.width = progress + "%";
+               }
+          }, 200);
+     }
+
+</script>
+
+</html>

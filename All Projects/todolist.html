@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="hi">
+
+<head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>To-Do सूची</title>
+     <link rel="stylesheet" href="style.css">
+</head>
+<style>
+     /* style.css */
+     body {
+          font-family: sans-serif;
+          background-color: #f0f8ff;
+          text-align: center;
+          padding: 20px;
+     }
+
+     .container {
+          background-color: white;
+          max-width: 400px;
+          margin: auto;
+          padding: 20px;
+          border-radius: 10px;
+          box-shadow: 0px 0px 10px gray;
+     }
+
+     input {
+          padding: 10px;
+          width: 70%;
+          margin-right: 10px;
+     }
+
+     button {
+          padding: 10px;
+     }
+
+     li {
+          text-align: left;
+          padding: 10px;
+          list-style: none;
+          border-bottom: 1px solid #ddd;
+          display: flex;
+          justify-content: space-between;
+     }
+
+     .completed {
+          text-decoration: line-through;
+          color: gray;
+     }
+</style>
+
+<body>
+
+     <div class="container">
+          <h1>मेरी To-Do सूची</h1>
+          <input type="date" id="dueDate" />
+          <button onclick="addTask()">जोड़ें</button>
+          <ul id="taskList"></ul>
+     </div>
+
+</body>
+<script>
+     // script.js
+
+     // कार्य सूची को localStorage से लोड करें
+     document.addEventListener("DOMContentLoaded", loadTasks);
+     // एडिट बटन बनाएँ
+     const editBtn = document.createElement("button");
+     editBtn.innerText = "✏️";
+     editBtn.onclick = () => {
+          span.contentEditable = true;
+          span.focus();
+     };
+     li.appendChild(editBtn);
+
+     // कार्य जोड़ने का फ़ंक्शन
+     function addTask() {
+          const taskInput = document.getElementById("taskInput");
+          const taskText = taskInput.value.trim();
+
+          if (taskText === "") {
+               alert("कृपया कोई कार्य लिखें!");
+               return;
+          }
+
+          const taskItem = createTaskItem(taskText);
+          document.getElementById("taskList").appendChild(taskItem);
+          saveTask(taskText);
+
+          taskInput.value = "";
+     }
+
+     // कार्य बनाने का HTML एलिमेंट
+     function createTaskItem(text) {
+          const li = document.createElement("li");
+          const span = document.createElement("span");
+          span.innerText = text;
+          span.onclick = () => {
+               span.classList.toggle("completed");
+          };
+          const delBtn = document.createElement("button");
+          delBtn.innerText = "हटाएं";
+          delBtn.onclick = () => {
+               li.remove();
+               deleteTask(text);
+          };
+          li.appendChild(span);
+          li.appendChild(delBtn);
+          return li;
+     }
+
+     // कार्य localStorage में सेव करें
+     function saveTask(task) {
+          let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+          tasks.push(task);
+          localStorage.setItem("tasks", JSON.stringify(tasks));
+     }
+     // कार्य हटाएँ
+     function deleteTask(taskText) {
+          let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+          tasks = tasks.filter(task => task !== taskText);
+          localStorage.setItem("tasks", JSON.stringify(tasks));
+     }
+     // localStorage से कार्य लोड करें
+     function loadTasks() {
+          let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+          tasks.forEach(taskText => {
+               const taskItem = createTaskItem(taskText);
+               document.getElementById("taskList").appendChild(taskItem);
+          });
+     }
+
+</script>
+
+</html>

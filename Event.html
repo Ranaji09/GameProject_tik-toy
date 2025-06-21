@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Event in javascript</title>
+</head>
+<style>
+     li {
+          height: 150px;
+          width: 150px;
+          border: 2px solid red;
+          list-style: none;
+          margin: 10px;
+          padding: 5px;
+     }
+
+     img {
+          height: 150px;
+          width: 150px;
+          border-radius: 5px;
+     }
+</style>
+
+<body style="background-color: rgb(54, 53, 53); color: aliceblue;">
+     <div id="all">
+          <ul id="imges">
+               <li><img height="200px" width="200px "
+                         src="https://cdn.pixabay.com/photo/2018/11/02/10/00/girl-face-3789933_1280.jpg" alt="bo1"
+                         id="box1"></li>
+               <li><img height="200px" width="200px "
+                         src="https://cdn.pixabay.com/photo/2016/06/19/12/46/woman-1466628_640.jpg" alt="bo2" id="box2">
+               </li>
+               <li><img height="200px" width="200px "
+                         src="https://cdn.pixabay.com/photo/2018/03/31/08/23/girl-3277529_640.jpg" alt="bo3" id="box3">
+               </li>
+               <li><img height="200px" width="200px "
+                         src="https://cdn.pixabay.com/photo/2016/11/29/02/28/woman-1866858_640.jpg" alt="bo4" id="box4">
+               </li>
+               <li><img height="200px" width="200px "
+                         src="https://cdn.pixabay.com/photo/2018/04/15/20/19/girl-3322756_640.jpg" alt="bo5" id="box5">
+               </li>
+
+          </ul>
+     </div>
+</body>
+<script>
+     // document.getElementById("imges").addEventListener("click", () => {
+     //      console.log("Clicked insides......")
+     // }, false)
+     // document.getElementById("box1").addEventListener("click", (e) => {
+     // e.stopPropagation();
+     // console.log("Box1 was clicked...")
+     // console.log(e.target.parentNode);
+     // console.log(e.target)
+     // console.log(e.target.id)
+     // console.log(e.timeStamp)
+     // console.log(e.target.tagName)
+     // }, false)
+
+     // Remove Element to after clicked..
+     // document.querySelector("#imges").addEventListener("click", (e) => {
+     //      // console.log(e.target)
+     //      const remove = e.target.tagName;
+     //      // console.log(remove)
+     //      if (remove === "IMG") {
+     //           const li = e.target.parentNode;
+     //           // console.log(li);
+     //           li.remove();
+     //      }
+     // });
+
+     // const box1 = document.getElementById("box1").onclick = function () {
+     //      alert("Box1 was clicked..")
+     // }
+
+     // Best method Approch
+     // document.getElementById("box1").addEventListener("click", (e) => {
+     // alert("Box1 was Clicked....")
+     // console.log(e);
+     // console.log(e.timeStamp)
+     // console.log(e.type)
+     // }, false)
+
+     // bobleMethod
+     // document.getElementById("imges").addEventListener("click", () => {
+     //      console.log("Box1 Clicked insedes....")
+     // })
+     // document.getElementById("box1").addEventListener("click", (e) => {
+     //      console.log("Box1 Was clicked...")
+     //      e.stopPropagation();
+     // })
+
+     // document.getElementById("imges").addEventListener("click", (e) => {
+
+     //      const tag = e.target.tagName;
+     //      if (tag === "IMG") {
+     //           const li = e.target.parentNode;
+     //           li.remove()
+     //      }
+     //      console.log(tag);
+     //      // console.log(li);
+     //      // li.remove()
+     // })
+
+
+     let a = document.querySelector("#imges")
+     a.addEventListener("click", (e) => {
+          console.log("Clicked insides ")
+     })
+     document.getElementById("box1").addEventListener("click", (e) => {
+          console.log("click inside the box")
+          e.stopPropagation()
+     })
+</script>
+
+</html>

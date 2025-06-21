@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+     <meta charset="UTF-8" />
+     <title>User Manager App</title>
+     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+     <style>
+          body {
+               font-family: sans-serif;
+               padding: 20px;
+               background: #f0f0f0;
+          }
+
+          input {
+               margin: 5px;
+               padding: 8px;
+          }
+
+          button {
+               padding: 8px 16px;
+               margin: 5px;
+          }
+
+          .user {
+               background: white;
+               padding: 10px;
+               margin: 10px 0;
+               border-radius: 5px;
+          }
+
+          .actions {
+               margin-top: 5px;
+          }
+     </style>
+</head>
+
+<body>
+
+     <h1>🧑‍💼 User Manager App</h1>
+
+     <input type="text" id="name" placeholder="Name" />
+     <input type="email" id="email" placeholder="Email" />
+     <input type="hidden" id="editId" />
+     <button onclick="addOrUpdateUser()">💾 Add / Update User</button>
+     <button onclick="fetchUsers()">📥 Get All Users</button>
+     <div id="output"></div>
+
+
+</body>
+<script>
+     const API = 'https://jsonplaceholder.typicode.com/users';
+
+     async function addOrUpdateUser() {
+          const name = document.getElementById("name").value;
+          const email = document.getElementById("email").value;
+          const id = document.getElementById("editId").value;
+
+          if (!name || !email) {
+               alert("Please enter name and email.");
+               return;
+          }
+
+          try {
+               if (id) {
+                    // PUT (Update)
+                    const res = await axios.put(`${API}/${id}`, { name, email });
+                    document.getElementById("output").innerText = "✏️ User Updated:\n" + JSON.stringify(res.data, null, 2);
+               } else {
+                    // POST (Add)
+                    const res = await axios.post(API, { name, email });
+                    document.getElementById("output").innerText = "✅ User Added:\n" + JSON.stringify(res.data, null, 2);
+               }
+               document.getElementById("name").value = "";
+               document.getElementById("email").value = "";
+               document.getElementById("editId").value = "";
+               fetchUsers();
+          } catch (err) {
+               document.getElementById("output").innerText = "❌ Error:\n" + err.message;
+          }
+     }
+
+     async function fetchUsers() {
+          try {
+               const response = await axios.get(API);
+               const users = response.data;
+               let html = "<h3>📋 All Users:</h3>";
+               users.forEach(user => {
+                    html += `
+            <div class="user">
+              👤 <strong>${user.name}</strong><br>
+              📧 ${user.email}
+              <div class="actions">
+                <button onclick="editUser(${user.id}, '${user.name}', '${user.email}')">✏️ Edit</button>
+                <button onclick="deleteUser(${user.id})">🗑️ Delete</button>
+              </div>
+            </div>`;
+               });
+               document.getElementById("output").innerHTML = html;
+          } catch (err) {
+               document.getElementById("output").innerText = "❌ Error Fetching Users:\n" + err.message;
+          }
+     }
+
+     function editUser(id, name, email) {
+          document.getElementById("name").value = name;
+          document.getElementById("email").value = email;
+          document.getElementById("editId").value = id;
+     }
+
+     async function deleteUser(id) {
+          try {
+               await axios.delete(`${API}/${id}`);
+               document.getElementById("output").innerText = "🗑️ User Deleted (fake API response)";
+               fetchUsers();
+          } catch (err) {
+               document.getElementById("output").innerText = "❌ Error Deleting:\n" + err.message;
+          }
+     }
+</script>
+
+</html>

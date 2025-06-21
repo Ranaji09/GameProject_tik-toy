@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+     <title>Cookie All-in-One Demo</title>
+</head>
+
+<body style="background-color: rgb(45, 48, 48); color: wheat;">
+     <h1>🍪 Cookies Full Demo (Set, Get, Expire, Delete, Read)</h1>
+
+     <button onclick="setCookie()">Set Cookie</button>
+     <button onclick="getCookieByName()">Get Cookie (by name)</button>
+     <button onclick="setExpiryCookie()">Set Expiry Cookie (60 sec)</button>
+     <button onclick="deleteCookie()">Delete Cookie</button>
+     <button onclick="readAllCookies()">Read All Cookies</button>
+
+     <p id="output" style="margin-top:20px; font-weight: bold;"></p>
+
+     <script>
+          // 1. Set Cookie (without expiry)
+          function setCookie() {
+               document.cookie = "username=Ranaji; path=/";
+               document.getElementById("output").innerText = "✅ Cookie 'username' set की गई!";
+          }
+
+          // 2. Get Cookie by Name
+          function getCookieByName() {
+               const name = "username=";
+               const decoded = decodeURIComponent(document.cookie);
+               const cookies = decoded.split(';');
+               for (let i = 0; i < cookies.length; i++) {
+                    let c = cookies[i].trim();
+                    if (c.indexOf(name) === 0) {
+                         document.getElementById("output").innerText = "📖 Cookie Value: " + c.substring(name.length);
+                         return;
+                    }
+               }
+               document.getElementById("output").innerText = "⚠️ Cookie 'username' नहीं मिली।";
+          }
+
+          // 3. Set Cookie with Expiry (60 seconds)
+          function setExpiryCookie() {
+               const d = new Date();
+               d.setTime(d.getTime() + (60 * 1000)); // 60 seconds
+               const expires = "expires=" + d.toUTCString();
+               document.cookie = "username=Ranaji" + expires + "; path=/";
+               document.getElementById("output").innerText = "⏳ Cookie 'temp' 60 सेकंड के लिए set की गई!";
+          }
+
+          // 4. Delete Cookie (set with past date)
+          function deleteCookie() {
+               document.cookie = "username=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+               document.cookie = "temp=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+               document.getElementById("output").innerText = "❌ Cookie 'username' और 'temp' delete कर दी गई!";
+          }
+
+          // 5. Read All Cookies
+          function readAllCookies() {
+               const all = document.cookie;
+               if (all) {
+                    document.getElementById("output").innerText = "👀 All Cookies: " + all;
+               } else {
+                    document.getElementById("output").innerText = "😐 कोई Cookie नहीं मिली।";
+               }
+          }
+     </script>
+</body>
+
+</html>
